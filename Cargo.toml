@@ -1,0 +1,12 @@
+[package]
+name = "bilkentmeals"
+version = "0.1.0"
+authors = ["Onur <onur_sahin@chromium.org>"]
+
+[dependencies]
+chrono = "*"
+reqwest = "*"
+scraper = "*"
+select = "*"
+# We need stable version
+encoding = "0.2.33" 
