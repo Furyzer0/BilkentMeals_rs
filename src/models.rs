@@ -45,6 +45,10 @@ impl Week {
     pub fn daily_from_weekday(&self, day: Weekday) -> &DailyMeal {
         self.0.get(day.num_days_from_monday() as usize).expect(&format!("expected day {:#?}", day))
     }
+
+    pub fn iter<'a>(&'a self) -> impl Iterator + 'a {
+        self.0.iter()
+    }
 }
 
 impl Display for DailyMeal {
@@ -54,5 +58,14 @@ impl Display for DailyMeal {
             writeln!(f, "{} / {}", tr, en)?;
         }
         Ok(())
+    }
+}
+
+impl IntoIterator for Week {
+    type Item = DailyMeal;
+    type IntoIter = std::vec::IntoIter<Self::Item>;
+
+    fn into_iter(self) -> <Self as IntoIterator>::IntoIter {
+        self.0.into_iter()
     }
 }
