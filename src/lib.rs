@@ -9,6 +9,7 @@ mod utils;
 
 #[cfg(test)]
 mod tests {
+    use super::*;
     use chrono::Weekday;
 
     #[test]
@@ -18,20 +19,10 @@ mod tests {
 
     #[test]
     fn test_get_table() {
-        println!(
-            "{}",
-            match ::scrap_meals() {
-                Ok(week) => {
-                    let day1 = week.daily_from_weekday(Weekday::Tue);
-                    println!("date: {}", day1.date);
-                    for (tr, en) in &day1.lunch {
-                        println!("{} - {}", tr, en);
-                    }
-                    "success"
-                }
-                Err(msg) => msg,
-            }
-        );
+        scrap_meals().map(|week| {
+            let day1 = week.daily_from_weekday(Weekday::Mon);
+            println!("{}", day1);
+        }).unwrap()
     }
 }
 
